@@ -96,6 +96,78 @@
   .subtitle-text {
     @apply text-muted-foreground text-xs tracking-[0.3em] uppercase;
   }
+
+  /* Scroll animation classes */
+  .scroll-fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-fade-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-fade-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-fade-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-fade-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .scroll-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Hero lighting effect - spotlight from top left */
+  .hero-lighting {
+    @apply absolute inset-0 pointer-events-none;
+    background:
+      radial-gradient(
+        ellipse 100% 80% at 20% 0%,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.15) 30%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 80%
+      ),
+      radial-gradient(
+        ellipse 80% 60% at 25% 10%,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.08) 40%,
+        transparent 70%
+      );
+  }
+
+  /* Text shadow effect for hero heading - shadow cast away from top-left light */
+  .hero-text-shadow {
+    text-shadow:
+      8px 8px 8px rgba(0, 0, 0, 0.4),
+      16px 16px 20px rgba(0, 0, 0, 0.3),
+      32px 32px 40px rgba(0, 0, 0, 0.2);
+  }
 }
 
 @layer utilities {
