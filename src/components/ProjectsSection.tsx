@@ -8,7 +8,7 @@ const projects = [
     slug: "keet-cafe",
     title: "KEET CAFE",
     subtitle: "Welcome to",
-    name: "Keet cafe",
+    name: "Keet Cafe",
     tagline: "Homemade baking, Tasty Drinks",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.",
   },
@@ -29,6 +29,24 @@ const projects = [
     name: "Keet",
     tagline: "Best pastries in town",
     description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    id: 4,
+    slug: "shobe-printing",
+    title: "SHOBE PRINTING SERVICES",
+    subtitle: "Resource Tracking for",
+    name: "Shobe Printing",
+    tagline: "Inventory Control & Resource Tracking System",
+    description: "A web-based inventory management system developed for Shobe Printing Services to automate consumable tracking, material usage logging, and stock-level monitoring — replacing manual paper-based processes.",
+  },
+  {
+    id: 5,
+    slug: "evvos",
+    title: "EVVOS",
+    subtitle: "Introducing",
+    name: "EVVOS",
+    tagline: "Enforcer Voice-Activated Video Observation System",
+    description: "A voice-activated body-worn camera system for traffic enforcers — enabling hands-free recording, automatic speech-to-text transcription, secure cloud evidence storage, and emergency backup alerts.",
   },
 ];
 
@@ -77,7 +95,7 @@ const ProjectsSection = () => {
 
       <div className="max-w-6xl mx-auto pt-16" ref={sectionRef}>
         <div className={`scroll-fade-up ${isVisible ? 'visible' : ''}`}>
-          {/* Project Cards - 3 cards carousel */}
+          {/* Project Cards - carousel */}
           <div className="relative flex items-center justify-center mb-12 h-[220px] md:h-[400px]">
             {projects.map((project, index) => {
               const position = getCardPosition(index);
