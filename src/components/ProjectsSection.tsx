@@ -5,33 +5,6 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const projects = [
   {
     id: 1,
-    slug: "keet-cafe",
-    title: "KEET CAFE",
-    subtitle: "Welcome to",
-    name: "Keet Cafe",
-    tagline: "Homemade baking, Tasty Drinks",
-    description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.",
-  },
-  {
-    id: 2,
-    slug: "project-two",
-    title: "PROJECT TWO",
-    subtitle: "Welcome to",
-    name: "Project",
-    tagline: "Amazing project showcase",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 3,
-    slug: "project-three",
-    title: "PROJECT THREE",
-    subtitle: "Welcome to",
-    name: "Keet",
-    tagline: "Best pastries in town",
-    description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: 4,
     slug: "shobe-printing",
     title: "SHOBE PRINTING SERVICES",
     subtitle: "Resource Tracking for",
@@ -40,13 +13,22 @@ const projects = [
     description: "A web-based inventory management system developed for Shobe Printing Services to automate consumable tracking, material usage logging, and stock-level monitoring — replacing manual paper-based processes.",
   },
   {
-    id: 5,
+    id: 2,
     slug: "evvos",
     title: "EVVOS",
     subtitle: "Introducing",
     name: "EVVOS",
     tagline: "Enforcer Voice-Activated Video Observation System",
     description: "A voice-activated body-worn camera system for traffic enforcers — enabling hands-free recording, automatic speech-to-text transcription, secure cloud evidence storage, and emergency backup alerts.",
+  },
+  {
+    id: 3,
+    slug: "coming-soon",
+    title: "COMING SOON",
+    subtitle: "Next project",
+    name: "Coming Soon",
+    tagline: "Something new is on the way",
+    description: "This project is currently in progress. Check back soon for updates.",
   },
 ];
 

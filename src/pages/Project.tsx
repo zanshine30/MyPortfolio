@@ -3,51 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 const projects = [
   {
     id: 1,
-    slug: "keet-cafe",
-    title: "KEET CAFE",
-    subtitle: "Welcome to",
-    name: "Keet cafe",
-    tagline: "Homemade baking, Tasty Drinks",
-    description:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.",
-    fullDescription:
-      "A comprehensive web design project for a local cafe, featuring a modern and inviting aesthetic. The design focuses on showcasing the cafe's homemade products and creating an warm atmosphere that reflects the brand's identity. The project included responsive design, menu integration, and an online ordering system.",
-    role: "Web Designer",
-    year: "2024",
-    tools: ["Figma", "React", "Tailwind CSS"],
-  },
-  {
-    id: 2,
-    slug: "project-two",
-    title: "PROJECT TWO",
-    subtitle: "Welcome to",
-    name: "Project",
-    tagline: "Amazing project showcase",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    fullDescription:
-      "An innovative digital experience designed to push the boundaries of modern web design. This project showcases cutting-edge techniques and interactive elements that engage users from the first click. The focus was on creating seamless animations and intuitive navigation.",
-    role: "UI/UX Designer",
-    year: "2024",
-    tools: ["Adobe XD", "Next.js", "Framer Motion"],
-  },
-  {
-    id: 3,
-    slug: "project-three",
-    title: "PROJECT THREE",
-    subtitle: "Welcome to",
-    name: "Keet",
-    tagline: "Best pastries in town",
-    description:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    fullDescription:
-      "A delightful brand identity and web presence for an artisan bakery. The design captures the essence of handcrafted quality and traditional baking methods while presenting them in a contemporary digital format. Special attention was given to typography and imagery that evokes warmth and craftsmanship.",
-    role: "Brand Designer",
-    year: "2023",
-    tools: ["Illustrator", "Photoshop", "WordPress"],
-  },
-  {
-    id: 4,
     slug: "shobe-printing",
     title: "SHOBE PRINTING SERVICES",
     subtitle: "Resource Tracking for",
@@ -60,9 +15,16 @@ const projects = [
     role: "Project Manager & Backend Developer",
     year: "2025",
     tools: ["React", "Node.js", "Supabase", "Figma"],
+    images: {
+      hero: "/images/shobe-hero.png",       // main preview image (top)
+      gallery: [
+        "/images/shobe-1.png",              // bottom-left image
+        "/images/shobe-2.png",              // bottom-right image
+      ],
+    },
   },
   {
-    id: 5,
+    id: 2,
     slug: "evvos",
     title: "EVVOS",
     subtitle: "Introducing",
@@ -75,6 +37,35 @@ const projects = [
     role: "Software Engineer & Quality Assurance",
     year: "2026",
     tools: ["Raspberry Pi", "Python", "React Native", "Expo", "React", "Supabase", "Groq Whisper"],
+    images: {
+      hero: "/images/evvos-hero.png",       // main preview image (top)
+      gallery: [
+        "/images/evvos-1.png",              // bottom-left image
+        "/images/evvos-2.png",              // bottom-right image
+      ],
+    },
+  },
+  {
+    id: 3,
+    slug: "coming-soon",
+    title: "COMING SOON",
+    subtitle: "Next project",
+    name: "Coming Soon",
+    tagline: "Something new is on the way",
+    description:
+      "This project is currently in progress. Check back soon for updates.",
+    fullDescription:
+      "This project is currently in progress. Details will be updated once the project is complete. Stay tuned for more.",
+    role: "TBD",
+    year: "TBD",
+    tools: [],
+    images: {
+      hero: "",                             // main preview image (top)
+      gallery: [
+        "",                                 // bottom-left image
+        "",                                 // bottom-right image
+      ],
+    },
   },
 ];
 
@@ -153,12 +144,20 @@ const Project = () => {
         </div>
       </section>
 
-      {/* Project Image Placeholder */}
+      {/* Project Hero Image */}
       <section className="px-8 md:px-16 pb-16">
         <div className="max-w-6xl mx-auto">
-          <div className="w-full aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
-            <span className="text-muted-foreground">Project Preview</span>
-          </div>
+          {project.images.hero ? (
+            <img
+              src={project.images.hero}
+              alt={`${project.title} preview`}
+              className="w-full aspect-video object-cover rounded-lg"
+            />
+          ) : (
+            <div className="w-full aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
+              <span className="text-muted-foreground">Project Preview</span>
+            </div>
+          )}
         </div>
       </section>
 
@@ -202,16 +201,32 @@ const Project = () => {
         </div>
       </section>
 
-      {/* More Images Placeholder */}
+      {/* Project Gallery Images */}
       <section className="px-8 md:px-16 pb-24">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
-              <span className="text-muted-foreground">Image 1</span>
-            </div>
-            <div className="aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
-              <span className="text-muted-foreground">Image 2</span>
-            </div>
+            {project.images.gallery[0] ? (
+              <img
+                src={project.images.gallery[0]}
+                alt={`${project.title} screenshot 1`}
+                className="w-full aspect-video object-cover rounded-lg"
+              />
+            ) : (
+              <div className="aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
+                <span className="text-muted-foreground">Image 1</span>
+              </div>
+            )}
+            {project.images.gallery[1] ? (
+              <img
+                src={project.images.gallery[1]}
+                alt={`${project.title} screenshot 2`}
+                className="w-full aspect-video object-cover rounded-lg"
+              />
+            ) : (
+              <div className="aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-lg flex items-center justify-center">
+                <span className="text-muted-foreground">Image 2</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
