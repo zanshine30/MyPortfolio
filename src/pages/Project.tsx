@@ -57,7 +57,7 @@ const projects = [
       "A web-based inventory management system developed for Shobe Printing Services to automate consumable tracking, material usage logging, and stock-level monitoring — replacing manual paper-based processes.",
     fullDescription:
       "Developed for Shobe Printing Services, a large-format tarpaulin printing and graphic design business in Quezon City, this Resource Tracking and Inventory Control System replaces the company's manual, paper-based inventory processes. The system automates real-time stock monitoring, material consumption logging, and report generation. Key features include low-stock alerts, a searchable transaction history, role-based access control for admins and production staff, and automated reports covering inventory summaries, consumption trends, and material-to-output analysis. Built with React, Node.js, and Supabase, the system was developed using the Rapid Application Development (RAD) model with Agile integration.",
-    role: "Full Stack Developer",
+    role: "Project Manager & Backend Developer",
     year: "2025",
     tools: ["React", "Node.js", "Supabase", "Figma"],
   },
@@ -72,7 +72,7 @@ const projects = [
       "A voice-activated body-worn camera system for traffic enforcers — enabling hands-free recording, automatic speech-to-text transcription, secure cloud evidence storage, and emergency backup alerts.",
     fullDescription:
       "EVVOS (Enforcer Voice-Activated Video Observation System) is a prototype wearable body-cam solution designed for traffic enforcers in the field. Built around a Raspberry Pi Zero 2W paired with a ReSpeaker 2-Microphone HAT and the Pico wake-word engine, the device allows officers to start, stop, and mark recordings entirely hands-free using voice commands. Enforcer narrations are automatically transcribed via the Groq Whisper API and linked to their corresponding video clips for fast review. Emergency backup alerts are broadcast to all connected officers in under five seconds, while a React/Vite web admin portal and a React Native/Expo mobile app provide full incident management and responder coordination. Supabase powers the cloud backend with a 13-table PostgreSQL database, JWT two-factor authentication, and secure object storage. The system was evaluated by traffic enforcers from three stations in Caloocan City and received a grand mean of 4.50 (Excellent) across functionality, reliability, efficiency, maintainability, and security.",
-    role: "Full Stack Developer / IoT Engineer",
+    role: "Software Engineer & Quality Assurance",
     year: "2026",
     tools: ["Raspberry Pi", "Python", "React Native", "Expo", "React", "Supabase", "Groq Whisper"],
   },
