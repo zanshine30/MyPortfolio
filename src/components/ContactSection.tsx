@@ -70,7 +70,7 @@ const ContactSection = () => {
             </h2>
 
             <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              I'm a junior web designer based in the Philippines, always eager to learn and collaborate. If you have a project or opportunity you'd like to discuss, feel free to drop me a message anytime.
             </p>
 
             <div className="space-y-6">
