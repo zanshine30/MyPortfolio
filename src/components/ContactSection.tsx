@@ -58,7 +58,7 @@ const ContactSection = () => {
   return (
     <section id="contact" className="relative min-h-screen bg-card py-24 px-8 md:px-16">
       <div className="absolute left-8 md:left-16 top-24 section-number">
-        .03
+        .04
       </div>
 
       <div className="max-w-5xl mx-auto pt-32">

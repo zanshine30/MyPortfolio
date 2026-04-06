@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Raindrop {
   x: number;
@@ -24,6 +25,7 @@ interface SplatParticle {
 }
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const raindropsRef = useRef<Raindrop[]>([]);
   const splatsRef = useRef<Splat[]>([]);
@@ -172,7 +174,10 @@ const HeroSection = () => {
 
       <div className="text-center opacity-0 animate-fade-in z-10" style={{ animationDelay: '0.2s' }}>
         <p className="subtitle-text mb-4">I Am</p>
-        <h1 className="heading-display text-6xl md:text-8xl lg:text-9xl mb-6 hero-text-shadow">
+        <h1
+          onClick={() => navigate("/about")}
+          className="heading-display text-6xl md:text-8xl lg:text-9xl mb-6 hero-text-shadow cursor-pointer hover:opacity-70 transition-opacity duration-300"
+        >
           JOHN ALWIN
         </h1>
         <div className="flex flex-col items-end">

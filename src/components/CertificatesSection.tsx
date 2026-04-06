@@ -50,20 +50,20 @@ const CertificatesSection = () => {
 
   return (
     <>
-      <section id="certificates" className="relative h-screen bg-card py-16 px-8 md:px-16 flex flex-col overflow-hidden">
-        <div className="absolute left-8 md:left-16 top-16 section-number">
-          .04
+      <section id="certificates" className="relative h-screen bg-card py-24 px-8 md:px-16 flex flex-col overflow-hidden">
+        <div className="absolute left-8 md:left-16 top-24 section-number">
+          .03
         </div>
 
-        <div className="absolute right-8 md:right-16 top-16">
+        <div className="absolute right-8 md:right-16 top-24">
           <span className="subtitle-text">Certificates</span>
         </div>
 
-        <div className="max-w-5xl mx-auto w-full pt-20 flex flex-col h-full">
+        <div className="max-w-5xl mx-auto w-full pt-32 flex flex-col h-full">
           {/* Header */}
           <div
             ref={headerRef}
-            className={`mb-6 scroll-fade-up ${headerVisible ? "visible" : ""}`}
+            className={`mb-4 scroll-fade-up ${headerVisible ? "visible" : ""}`}
           >
             <h2 className="heading-display text-2xl md:text-3xl mb-2">
               E-CERTIFICATES
@@ -77,7 +77,7 @@ const CertificatesSection = () => {
           {/* Grid */}
           <div
             ref={gridRef}
-            className={`grid grid-cols-2 gap-4 flex-1 min-h-0 scroll-fade-up ${gridVisible ? "visible" : ""}`}
+            className={`grid grid-cols-2 gap-3 flex-1 min-h-0 scroll-fade-up ${gridVisible ? "visible" : ""}`}
           >
             {certificates.map((cert, index) => (
               <div
