@@ -1,5 +1,13 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
+// 🔑 Replace these with your actual EmailJS credentials
+const EMAILJS_SERVICE_ID = "service_pxkgayt";
+const EMAILJS_TEMPLATE_ID = "template_xid3a3g";
+const EMAILJS_PUBLIC_KEY = "eJ4UYDifzs7-cGZId";
+
+type FormStatus = "idle" | "sending" | "success" | "error";
 
 const ContactSection = () => {
   const { ref: leftRef, isVisible: leftVisible } = useScrollAnimation({ threshold: 0.2 });
@@ -10,10 +18,34 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<FormStatus>("idle");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setStatus("sending");
+
+    emailjs
+      .send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setStatus("success");
+        setFormData({ name: "", phone: "", email: "", message: "" });
+        // Reset back to idle after 5 seconds
+        setTimeout(() => setStatus("idle"), 5000);
+      })
+      .catch(() => {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,12 +104,28 @@ const ContactSection = () => {
             </div>
           </div>
 
-          {/* Contact Form - Always Elevated Card */}
+          {/* Contact Form */}
           <div ref={rightRef} className={`scroll-fade-right ${rightVisible ? 'visible' : ''}`}>
             <div className="bg-secondary/80 rounded-lg p-8 shadow-2xl -translate-y-2">
               <h2 className="heading-display text-2xl md:text-3xl mb-8">
                 CONTACT FORM
               </h2>
+
+              {/* Success message */}
+              {status === "success" && (
+                <div className="mb-6 px-4 py-3 border border-foreground/20 rounded text-sm text-foreground bg-foreground/5 flex items-center gap-2">
+                  <span>✓</span>
+                  Message sent! I'll get back to you soon.
+                </div>
+              )}
+
+              {/* Error message */}
+              {status === "error" && (
+                <div className="mb-6 px-4 py-3 border border-destructive/40 rounded text-sm text-destructive bg-destructive/5 flex items-center gap-2">
+                  <span>✕</span>
+                  Something went wrong. Please try again.
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -87,7 +135,9 @@ const ContactSection = () => {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
+                    required
+                    disabled={status === "sending"}
+                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors disabled:opacity-50"
                   />
                 </div>
 
@@ -98,7 +148,8 @@ const ContactSection = () => {
                     placeholder="Your phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
+                    disabled={status === "sending"}
+                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors disabled:opacity-50"
                   />
                 </div>
 
@@ -109,7 +160,9 @@ const ContactSection = () => {
                     placeholder="Your e-mail"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
+                    required
+                    disabled={status === "sending"}
+                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors disabled:opacity-50"
                   />
                 </div>
 
@@ -120,16 +173,30 @@ const ContactSection = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors resize-none"
+                    required
+                    disabled={status === "sending"}
+                    className="w-full bg-transparent border-b border-border py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors resize-none disabled:opacity-50"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-secondary border border-border px-8 py-4 text-xs tracking-[0.2em] uppercase text-foreground hover:bg-muted transition-colors duration-300 flex items-center justify-center gap-2"
+                  disabled={status === "sending"}
+                  className="w-full bg-secondary border border-border px-8 py-4 text-xs tracking-[0.2em] uppercase text-foreground hover:bg-muted transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
-                  <span>→</span>
+                  {status === "sending" ? (
+                    <>
+                      <svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <span>→</span>
+                    </>
+                  )}
                 </button>
               </form>
             </div>
