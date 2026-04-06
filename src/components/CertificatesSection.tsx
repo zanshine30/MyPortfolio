@@ -4,22 +4,22 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const certificates = [
   {
     id: 1,
-    image: "/images/e-cert-1.png",
+    image: "/images/e-cert/e-cert-1.png",
     title: "Certificate 1",
   },
   {
     id: 2,
-    image: "/images/e-cert-2.png",
+    image: "/images/e-cert/e-cert-2.png",
     title: "Certificate 2",
   },
   {
     id: 3,
-    image: "/images/e-cert-3.png",
+    image: "/images/e-cert/e-cert-3.png",
     title: "Certificate 3",
   },
   {
     id: 4,
-    image: "/images/e-cert-4.png",
+    image: "/images/e-cert/e-cert-4.png",
     title: "Certificate 4",
   },
 ];

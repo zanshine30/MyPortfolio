@@ -11,6 +11,7 @@ const projects = [
     name: "Shobe Printing",
     tagline: "Inventory Control & Resource Tracking System",
     description: "A web-based inventory management system developed for Shobe Printing Services to automate consumable tracking, material usage logging, and stock-level monitoring — replacing manual paper-based processes.",
+    image: "/images/projects/shobe-printing.png",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const projects = [
     name: "EVVOS",
     tagline: "Enforcer Voice-Activated Video Observation System",
     description: "A voice-activated body-worn camera system for traffic enforcers — enabling hands-free recording, automatic speech-to-text transcription, secure cloud evidence storage, and emergency backup alerts.",
+    image: "/images/projects/evvos.png",
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const projects = [
     name: "Coming Soon",
     tagline: "Something new is on the way",
     description: "This project is currently in progress. Check back soon for updates.",
+    image: null,
   },
 ];
 
@@ -87,13 +90,36 @@ const ProjectsSection = () => {
                   onClick={() => handleCardClick(index)}
                   className={`absolute bg-secondary rounded-lg overflow-hidden shadow-xl cursor-pointer transition-all duration-500 ease-in-out ${getCardStyles(position)} ${position !== "center" ? "hover:opacity-90" : ""}`}
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center p-4">
-                    <div className="text-center">
-                      <p className="text-muted-foreground text-xs mb-2">{project.subtitle}</p>
-                      <p className={`text-foreground font-semibold mb-4 ${position === "center" ? "text-xl md:text-2xl" : "text-lg"}`}>
+                <div className="w-full h-full relative overflow-hidden flex items-center justify-center p-4">
+                    {/* Blurred background image */}
+                    {project.image && (
+                      <div
+                        className="absolute inset-0 bg-cover bg-center scale-110"
+                        style={{
+                          backgroundImage: `url(${project.image})`,
+                          filter: "blur(3px)",
+                        }}
+                      />
+                    )}
+
+                    {/* Dark overlay — heavier so white dashboards don't blind the text */}
+                    <div className="absolute inset-0 bg-zinc-900/75" />
+
+                    {/* Subtle vignette for extra depth */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%)",
+                      }}
+                    />
+
+                    {/* Text content */}
+                    <div className="relative z-10 text-center">
+                      <p className="text-white/60 text-xs mb-2 tracking-widest uppercase">{project.subtitle}</p>
+                      <p className={`text-white font-semibold mb-3 drop-shadow-lg ${position === "center" ? "text-xl md:text-2xl" : "text-lg"}`}>
                         {project.name}
                       </p>
-                      <p className={`text-foreground font-medium ${position === "center" ? "text-sm md:text-base" : "text-sm"}`}>
+                      <p className={`text-white/80 font-medium drop-shadow ${position === "center" ? "text-sm md:text-base" : "text-xs"}`}>
                         {project.tagline}
                       </p>
                     </div>
