@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import CertificatesSection from "@/components/CertificatesSection";
 import ContactSection from "@/components/ContactSection";
 import SocialIcons from "@/components/SocialIcons";
 
@@ -11,6 +12,7 @@ const Index = () => {
       <SocialIcons />
       <HeroSection />
       <ProjectsSection />
+      <CertificatesSection />
       <ContactSection />
     </main>
   );
