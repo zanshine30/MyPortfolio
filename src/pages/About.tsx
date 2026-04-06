@@ -114,7 +114,7 @@ const About = () => {
 
             <div>
               <p className="text-muted-foreground/50 text-xs tracking-[0.2em] uppercase mb-2">Full Name</p>
-              <p className="text-foreground text-sm">John Alwin Nocillado</p>
+              <p className="text-foreground text-sm">John Alwin Ruaya Nocillado</p>
             </div>
 
             <div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Raindrop {
@@ -26,6 +26,7 @@ interface SplatParticle {
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const raindropsRef = useRef<Raindrop[]>([]);
   const splatsRef = useRef<Splat[]>([]);
@@ -174,12 +175,45 @@ const HeroSection = () => {
 
       <div className="text-center opacity-0 animate-fade-in z-10" style={{ animationDelay: '0.2s' }}>
         <p className="subtitle-text mb-4">I Am</p>
-        <h1
-          onClick={() => navigate("/about")}
-          className="heading-display text-6xl md:text-8xl lg:text-9xl mb-6 hero-text-shadow cursor-pointer hover:opacity-70 transition-opacity duration-300"
-        >
-          JOHN ALWIN
-        </h1>
+        <div className="relative inline-block mb-6">
+          <h1
+            onClick={() => navigate("/about")}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="heading-display text-6xl md:text-8xl lg:text-9xl hero-text-shadow cursor-pointer transition-all duration-500"
+            style={{
+              letterSpacing: isHovered ? "0.12em" : "0.04em",
+              textShadow: isHovered
+                ? "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3), 0 0 80px rgba(255,255,255,0.15)"
+                : undefined,
+              opacity: isHovered ? 0.9 : 1,
+            }}
+          >
+            JOHN ALWIN
+          </h1>
+
+          {/* Animated underline */}
+          <span
+            className="absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-500 ease-out"
+            style={{
+              width: isHovered ? "100%" : "0%",
+              opacity: isHovered ? 0.6 : 0,
+            }}
+          />
+
+          {/* Click hint label */}
+          <span
+            className="absolute -bottom-6 left-1/2 h-[5px] -translate-x-1/2 text-xs tracking-widest uppercase transition-all duration-300 whitespace-nowrap pointer-events-none"
+            style={{
+              opacity: isHovered ? 0.45 : 0,
+              color: "rgba(255,255,255,0.7)",
+              transform: `translateX(-50%) translateY(${isHovered ? "0px" : "4px"})`,
+              letterSpacing: "0.2em",
+            }}
+          >
+            View About Me
+          </span>
+        </div>
         <div className="flex flex-col items-end">
           <p className="subtitle-text">A Junior</p>
           <p className="subtitle-text">Web Designer</p>
