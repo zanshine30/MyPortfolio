@@ -2,10 +2,9 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-// 🔑 Replace these with your actual EmailJS credentials
-const EMAILJS_SERVICE_ID = "service_pxkgayt";
-const EMAILJS_TEMPLATE_ID = "template_xid3a3g";
-const EMAILJS_PUBLIC_KEY = "eJ4UYDifzs7-cGZId";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -22,6 +21,14 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error("Missing EmailJS environment variables.");
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    }
+
     setStatus("sending");
 
     emailjs
