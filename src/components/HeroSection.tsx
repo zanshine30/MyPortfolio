@@ -201,9 +201,9 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Click hint label */}
+          {/* Click hint label — desktop hover only */}
           <span
-            className="absolute -bottom-6 left-1/2 h-[5px] -translate-x-1/2 text-xs tracking-widest uppercase transition-all duration-300 whitespace-nowrap pointer-events-none"
+            className="absolute -bottom-6 left-1/2 h-[5px] -translate-x-1/2 text-xs tracking-widest uppercase transition-all duration-300 whitespace-nowrap pointer-events-none hidden md:block"
             style={{
               opacity: isHovered ? 0.45 : 0,
               color: "rgba(255,255,255,0.7)",
@@ -212,6 +212,33 @@ const HeroSection = () => {
             }}
           >
             View About Me
+          </span>
+
+          {/* Mobile-only: pulsing underline */}
+          <span className="md:hidden absolute bottom-0 left-0 h-[2px] bg-white mobile-underline" />
+
+          {/* Mobile-only: tap hint label */}
+          <span className="md:hidden absolute -bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap pointer-events-none tap-hint">
+            <style>{`
+              @keyframes tapPulse {
+                0%, 100% { opacity: 0.3;  transform: translateX(-50%) scale(1);    }
+                50%       { opacity: 0.65; transform: translateX(-50%) scale(1.04); }
+              }
+              @keyframes mobileLine {
+                0%, 100% { width: 0%;   opacity: 0.15; }
+                50%      { width: 100%; opacity: 0.45; }
+              }
+              .tap-hint       { animation: tapPulse  6s ease-in-out infinite; color: rgba(255,255,255,0.55); letter-spacing: 0.18em; }
+              .mobile-underline { animation: mobileLine 6s ease-in-out infinite; }
+            `}</style>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              {/* Tap / finger icon */}
+              <path d="M12 2a3 3 0 0 1 3 3v7" />
+              <path d="M9 5a3 3 0 0 0-3 3v4" />
+              <path d="M15 5a3 3 0 0 1 3 3v3" />
+              <path d="M6 12v2a6 6 0 0 0 6 6h0a6 6 0 0 0 6-6v-2" />
+            </svg>
+            <span className="text-[10px] uppercase tracking-[0.18em]">Tap to view</span>
           </span>
         </div>
         <div className="flex flex-col items-end">
