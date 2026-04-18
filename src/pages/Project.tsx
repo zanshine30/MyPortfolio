@@ -195,6 +195,15 @@ const Project = () => {
     setPan({ x: 0, y: 0 });
   }, [lightboxIndex]);
 
+  // Prevent page scroll while lightbox is open (React's onWheel is passive by default,
+  // so e.preventDefault() inside the handler is ignored — we need a native non-passive listener).
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const prevent = (e: WheelEvent) => e.preventDefault();
+    document.addEventListener("wheel", prevent, { passive: false });
+    return () => document.removeEventListener("wheel", prevent);
+  }, [lightboxIndex]);
+
   const goCarouselNext = useCallback(() => {
     if (!project) return;
     setCarouselIndex((prev) => (prev + 1) % project.carousel.length);
@@ -624,7 +633,7 @@ const Project = () => {
       {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-12"
-          onClick={zoom > 1 ? undefined : () => { setLightboxIndex(null); setZoom(1); setPan({ x: 0, y: 0 }); }}
+          onClick={() => { setLightboxIndex(null); setZoom(1); setPan({ x: 0, y: 0 }); }}
           onMouseMove={handleLightboxMouseMove}
           onMouseUp={handleLightboxMouseUp}
           onMouseLeave={handleLightboxMouseUp}

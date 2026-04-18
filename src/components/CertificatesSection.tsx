@@ -1,12 +1,27 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const certificates = [
-  { id: 1, image: "/images/e-cert/e-cert-1.png", title: "Certificate 1" },
-  { id: 2, image: "/images/e-cert/e-cert-2.png", title: "Certificate 2" },
-  { id: 3, image: "/images/e-cert/e-cert-3.png", title: "Certificate 3" },
-  { id: 4, image: "/images/e-cert/e-cert-4.png", title: "Certificate 4" },
-];
+// ─── Dynamic certificate loader ───────────────────────────────────────────────
+// Just drop a new e-cert-N.png into /public/images/e-cert/ and it will
+// automatically appear here — no code changes needed.
+const certModules = import.meta.glob("/public/images/e-cert/e-cert-*.png", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+const certificates = Object.entries(certModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([path, url], index) => {
+    const filename = path.split("/").pop() ?? path; // e.g. "e-cert-3.png"
+    const num = filename.match(/\d+/)?.[0] ?? String(index + 1);
+    return {
+      id: index + 1,
+      image: url,
+      title: `Certificate ${num}`,
+    };
+  });
+// ──────────────────────────────────────────────────────────────────────────────
 
 const SWIPE_THRESHOLD = 50;
 const MIN_ZOOM = 1;
@@ -246,20 +261,29 @@ const CertificatesSection = () => {
     return () => window.removeEventListener("keydown", handler);
   }, [lightbox, goNext, goPrev]);
 
+  // Prevent page scroll while lightbox is open (React's onWheel is passive by default,
+  // so e.preventDefault() inside the handler is ignored — we need a native non-passive listener).
+  useEffect(() => {
+    if (lightbox === null) return;
+    const prevent = (e: WheelEvent) => e.preventDefault();
+    document.addEventListener("wheel", prevent, { passive: false });
+    return () => document.removeEventListener("wheel", prevent);
+  }, [lightbox]);
+
   const isZoomed = zoom > 1;
 
   return (
     <>
       <section
         id="certificates"
-        className="relative h-screen bg-card py-24 px-8 md:px-16 flex flex-col overflow-hidden"
+        className="relative bg-card py-24 px-8 md:px-16 flex flex-col"
       >
         <div className="absolute left-8 md:left-16 top-24 section-number">.03</div>
         <div className="absolute right-8 md:right-16 top-24">
           <span className="subtitle-text">Certificates</span>
         </div>
 
-        <div className="max-w-5xl mx-auto w-full pt-32 flex flex-col h-full">
+        <div className="max-w-5xl mx-auto w-full pt-32 flex flex-col">
           <div ref={headerRef} className={`mb-4 scroll-fade-up ${headerVisible ? "visible" : ""}`}>
             <h2 className="heading-display text-2xl md:text-3xl mb-2">E-CERTIFICATES</h2>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-lg">
@@ -268,16 +292,16 @@ const CertificatesSection = () => {
             </p>
           </div>
 
-          <div ref={gridRef} className={`grid grid-cols-2 gap-3 flex-1 min-h-0 scroll-fade-up ${gridVisible ? "visible" : ""}`}>
+          <div ref={gridRef} className={`grid grid-cols-2 gap-3 scroll-fade-up ${gridVisible ? "visible" : ""}`}>
             {certificates.map((cert, index) => (
               <div
                 key={cert.id}
                 onClick={() => openLightbox(cert.id)}
-                className="group relative bg-secondary rounded-lg overflow-hidden cursor-pointer border border-border hover:border-foreground/30 transition-all duration-500 flex flex-col"
+                className="group relative bg-secondary rounded-lg overflow-hidden cursor-pointer border border-border hover:border-foreground/30 transition-all duration-500"
                 style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <div className="relative overflow-hidden flex-1 min-h-0">
-                  <img src={cert.image} alt={cert.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative overflow-hidden">
+                  <img src={cert.image} alt={cert.title} className="w-full h-auto block transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-foreground">
@@ -302,7 +326,7 @@ const CertificatesSection = () => {
       {lightbox !== null && activeCert && (
         <div
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-12"
-          onClick={isZoomed ? undefined : closeLightbox}
+          onClick={closeLightbox}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const calculateAge = (): number => {
@@ -14,6 +15,7 @@ const calculateAge = (): number => {
 const About = () => {
   const navigate = useNavigate();
   const age = calculateAge();
+  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   return (
     <div className="min-h-screen bg-card text-foreground overflow-x-hidden">
@@ -58,13 +60,14 @@ const About = () => {
                 src="/images/profile.jpg"
                 alt="John Alwin"
                 className="w-full h-full object-cover"
+                onLoad={() => setPhotoLoaded(true)}
                 onError={(e) => {
                   // Show placeholder if image not found
                   (e.target as HTMLImageElement).style.display = "none";
                 }}
               />
               {/* Placeholder shown when no image */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+              <div className={`absolute inset-0 flex flex-col items-center justify-center gap-4 ${photoLoaded ? "hidden" : ""}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="48"
