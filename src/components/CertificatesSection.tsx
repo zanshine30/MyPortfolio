@@ -300,8 +300,8 @@ const CertificatesSection = () => {
                 className="group relative bg-secondary rounded-lg overflow-hidden cursor-pointer border border-border hover:border-foreground/30 transition-all duration-500"
                 style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <div className="relative overflow-hidden">
-                  <img src={cert.image} alt={cert.title} className="w-full h-auto block transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative overflow-hidden aspect-video">
+                  <img src={cert.image} alt={cert.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-foreground">
