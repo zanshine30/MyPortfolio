@@ -200,6 +200,60 @@ const About = () => {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="border-t border-border mb-16 opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }} />
+
+        {/* Experience */}
+        <div className="opacity-0 animate-fade-in" style={{ animationDelay: "0.8s" }}>
+          <p className="subtitle-text mb-8">Experience</p>
+
+          <div className="space-y-8">
+            <div className="group flex gap-8 items-start">
+              <div className="flex-shrink-0 w-12 h-12 bg-secondary rounded border border-border flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-muted-foreground"
+                >
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                  <line x1="12" y1="12" x2="12" y2="16" />
+                  <line x1="10" y1="14" x2="14" y2="14" />
+                </svg>
+              </div>
+              <div className="flex-1 border-b border-border pb-8">
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <div>
+                    <h3 className="text-foreground text-sm font-medium tracking-wide mb-1">
+                      Intern — Biometrics &amp; Records Processing
+                    </h3>
+                    <p className="text-muted-foreground text-xs tracking-[0.15em] uppercase">
+                      National Bureau of Investigation (NBI) Satellite · Valenzuela City Town Center
+                    </p>
+                  </div>
+                  <span className="text-muted-foreground/40 text-xs whitespace-nowrap">
+                    Apr 2026 — Jul 2026
+                  </span>
+                </div>
+                <p className="text-muted-foreground text-xs leading-relaxed mt-3 max-w-lg">
+                  Completed a 400-hour internship operating the NBI's internal system to capture
+                  applicant biometrics — including all ten fingerprints, facial photographs, and
+                  digital signatures — and submitting records for name-clearance verification.
+                  Also handled the encoding of First-Time Job Seeker applicants into Excel for
+                  documentation and reporting purposes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

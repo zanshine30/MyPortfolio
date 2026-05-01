@@ -180,35 +180,38 @@ const HeroSection = () => {
             onClick={() => navigate("/about")}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="heading-display text-6xl md:text-8xl lg:text-9xl hero-text-shadow cursor-pointer transition-all duration-500"
+            className={`heading-display text-6xl md:text-8xl lg:text-9xl hero-text-shadow cursor-pointer transition-all duration-500 ${!isHovered ? "name-idle" : ""}`}
             style={{
               letterSpacing: isHovered ? "0.12em" : "0.04em",
               textShadow: isHovered
                 ? "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3), 0 0 80px rgba(255,255,255,0.15)"
                 : undefined,
               opacity: isHovered ? 0.9 : 1,
+              animation: isHovered ? "none" : undefined,
             }}
           >
             JOHN ALWIN
           </h1>
 
-          {/* Animated underline */}
+          {/* Animated underline — pulses on idle, fills on hover */}
           <span
-            className="absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-500 ease-out"
+            className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-500 ease-out ${!isHovered ? "name-idle-line" : ""}`}
             style={{
-              width: isHovered ? "100%" : "0%",
-              opacity: isHovered ? 0.6 : 0,
+              width: isHovered ? "100%" : undefined,
+              left: isHovered ? "0" : undefined,
+              opacity: isHovered ? 0.6 : undefined,
+              animation: isHovered ? "none" : undefined,
             }}
           />
 
-          {/* Click hint label — desktop hover only */}
+          {/* Click hint label — floats on idle, brightens on hover (desktop only) */}
           <span
-            className="absolute -bottom-6 left-1/2 h-[5px] -translate-x-1/2 text-xs tracking-widest uppercase transition-all duration-300 whitespace-nowrap pointer-events-none hidden md:block"
+            className={`absolute -bottom-6 left-1/2 h-[5px] -translate-x-1/2 text-xs tracking-widest uppercase whitespace-nowrap pointer-events-none hidden md:block transition-all duration-300 ${!isHovered ? "hint-idle" : ""}`}
             style={{
-              opacity: isHovered ? 0.45 : 0,
-              color: "rgba(255,255,255,0.7)",
-              transform: `translateX(-50%) translateY(${isHovered ? "0px" : "4px"})`,
-              letterSpacing: "0.2em",
+              opacity: isHovered ? 0.7 : undefined,
+              color: isHovered ? "rgba(255,255,255,0.85)" : undefined,
+              transform: isHovered ? "translateX(-50%) translateY(0px)" : undefined,
+              animation: isHovered ? "none" : undefined,
             }}
           >
             View About Me
@@ -228,7 +231,22 @@ const HeroSection = () => {
                 0%, 100% { width: 0%;   opacity: 0.15; }
                 50%      { width: 100%; opacity: 0.45; }
               }
-              .tap-hint       { animation: tapPulse  6s ease-in-out infinite; color: rgba(255,255,255,0.55); letter-spacing: 0.18em; }
+              @keyframes idleGlow {
+                0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,0.08); }
+                50%      { text-shadow: 0 0 28px rgba(255,255,255,0.28), 0 0 60px rgba(255,255,255,0.10); }
+              }
+              @keyframes idleLine {
+                0%, 100% { width: 18%; opacity: 0.18; left: 41%; }
+                50%      { width: 30%; opacity: 0.35; left: 35%; }
+              }
+              @keyframes hintFloat {
+                0%, 100% { opacity: 0.28; transform: translateX(-50%) translateY(0px); }
+                50%      { opacity: 0.50; transform: translateX(-50%) translateY(-2px); }
+              }
+              .name-idle        { animation: idleGlow 4s ease-in-out infinite; }
+              .name-idle-line   { animation: idleLine 4s ease-in-out infinite; }
+              .hint-idle        { animation: hintFloat 4s ease-in-out infinite; color: rgba(255,255,255,0.6); letter-spacing: 0.2em; }
+              .tap-hint         { animation: tapPulse 6s ease-in-out infinite; color: rgba(255,255,255,0.55); letter-spacing: 0.18em; }
               .mobile-underline { animation: mobileLine 6s ease-in-out infinite; }
             `}</style>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
