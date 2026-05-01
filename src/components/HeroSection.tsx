@@ -195,7 +195,7 @@ const HeroSection = () => {
 
           {/* Animated underline — pulses on idle, fills on hover */}
           <span
-            className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-500 ease-out ${!isHovered ? "name-idle-line" : ""}`}
+            className={`absolute bottom-0 left-0 h-[2px] bg-white transition-all duration-500 ease-out hidden md:block ${!isHovered ? "name-idle-line" : ""}`}
             style={{
               width: isHovered ? "100%" : undefined,
               left: isHovered ? "0" : undefined,
@@ -231,21 +231,23 @@ const HeroSection = () => {
                 0%, 100% { width: 0%;   opacity: 0.15; }
                 50%      { width: 100%; opacity: 0.45; }
               }
-              @keyframes idleGlow {
-                0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,0.08); }
-                50%      { text-shadow: 0 0 28px rgba(255,255,255,0.28), 0 0 60px rgba(255,255,255,0.10); }
+              @media (min-width: 768px) {
+                @keyframes idleGlow {
+                  0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,0.08); }
+                  50%      { text-shadow: 0 0 28px rgba(255,255,255,0.28), 0 0 60px rgba(255,255,255,0.10); }
+                }
+                @keyframes idleLine {
+                  0%, 100% { width: 18%; opacity: 0.18; left: 41%; }
+                  50%      { width: 30%; opacity: 0.35; left: 35%; }
+                }
+                @keyframes hintFloat {
+                  0%, 100% { opacity: 0.28; transform: translateX(-50%) translateY(0px); }
+                  50%      { opacity: 0.50; transform: translateX(-50%) translateY(-2px); }
+                }
+                .name-idle      { animation: idleGlow 4s ease-in-out infinite; }
+                .name-idle-line { animation: idleLine 4s ease-in-out infinite; }
+                .hint-idle      { animation: hintFloat 4s ease-in-out infinite; color: rgba(255,255,255,0.6); letter-spacing: 0.2em; }
               }
-              @keyframes idleLine {
-                0%, 100% { width: 18%; opacity: 0.18; left: 41%; }
-                50%      { width: 30%; opacity: 0.35; left: 35%; }
-              }
-              @keyframes hintFloat {
-                0%, 100% { opacity: 0.28; transform: translateX(-50%) translateY(0px); }
-                50%      { opacity: 0.50; transform: translateX(-50%) translateY(-2px); }
-              }
-              .name-idle        { animation: idleGlow 4s ease-in-out infinite; }
-              .name-idle-line   { animation: idleLine 4s ease-in-out infinite; }
-              .hint-idle        { animation: hintFloat 4s ease-in-out infinite; color: rgba(255,255,255,0.6); letter-spacing: 0.2em; }
               .tap-hint         { animation: tapPulse 6s ease-in-out infinite; color: rgba(255,255,255,0.55); letter-spacing: 0.18em; }
               .mobile-underline { animation: mobileLine 6s ease-in-out infinite; }
             `}</style>
